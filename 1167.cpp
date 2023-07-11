@@ -1,12 +1,11 @@
 #include<iostream>
 #include<vector>
-
+#include<cstring>
 using namespace std;
-int n, u, v , cost;
+vector<pair<int, int>> graph[100001];
+bool visit[100001];
+int n, u, v, num;
 int node, ans;
-bool visit[10001];
-vector<pair<int, int>> graph[10001];
-
 void DFS(int x, int dist) {
 	visit[x] = true;
 	if (dist > ans) {
@@ -27,10 +26,14 @@ int main() {
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
 	cin >> n;
-	for (int i = 1; i < n; i++) {
-		cin >> u >> v >> cost;
-		graph[u].push_back({ v, cost });
-		graph[v].push_back({ u, cost });
+	for (int i = 1; i <= n; i++) {
+		cin >> num;
+		while (1) {
+			cin >> u;
+			if (u == -1) break;
+			cin >> v;
+			graph[num].push_back({ u, v });
+		}
 	}
 	DFS(1, 0);
 	ans = 0;
