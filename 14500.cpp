@@ -5,11 +5,9 @@ using namespace std;
 // 상하좌우
 int dy[4] = { -1, 1, 0, 0 };
 int dx[4] = { 0, 0, -1, 1 };
-
 int board[500][500], visit[500][500];
 int MAX;
 int N, M;
-
 // ㅜ모양 체크
 void findFuckShapeMax(int y, int x)
 {

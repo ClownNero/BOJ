@@ -1,47 +1,52 @@
 #include <iostream>
-#include <set>
-
+#include <map>
+#include <queue>
 using namespace std;
-
-int main() {
-	int test_case;
-
-	cin >> test_case;
-
-	for (int t = 0; t < test_case; t++) {
-		int N;
-		cin >> N;
-
-		multiset<int> s;
-
-		for (int i = 0; i < N; i++) {
-			char op;
-			int num;
+int T, Q;
+typedef long long ll;
+int main()
+{
+	cin >> T;
+	while (T--) {
+		cin >> Q;
+		priority_queue<ll, vector<ll>, greater<ll>> minQ;
+		priority_queue<ll, vector<ll>, less<ll>> maxQ;
+		map<ll, ll> m;
+		char op;
+		ll num;
+		while (Q--) {
 			cin >> op >> num;
-
 			if (op == 'I') {
-				s.insert(num);
+				maxQ.push(num);
+				minQ.push(num);
+				m[num]++;
+			}
+			else if (num == 1) {
+				while (!maxQ.empty() && m[maxQ.top()] == 0)
+					maxQ.pop();
+
+				if (!maxQ.empty()) {
+					m[maxQ.top()]--;
+					maxQ.pop();
+				}
 			}
 			else {
-				if (!s.empty()) {
-					if (num == 1) {
-						auto it = s.end();
-						it--;
-						s.erase(it);
-					}
-					else
-						s.erase(s.begin());
+				while (!minQ.empty() && m[minQ.top()] == 0)
+					minQ.pop();
+
+				if (!minQ.empty()) {
+					m[minQ.top()]--;
+					minQ.pop();
 				}
 			}
 		}
-
-		if (s.empty())
-			cout << "EMPTY" << "\n";
-		else {
-			auto it = s.end();
-			it--;
-			cout << *it << " " << *s.begin() << "\n";
-		}
+		while (!maxQ.empty() && m[maxQ.top()] == 0)
+			maxQ.pop();
+		while (!minQ.empty() && m[minQ.top()] == 0)
+			minQ.pop();
+		if (minQ.empty())
+			cout << "EMPTY\n";
+		else
+			cout << maxQ.top() << " " << minQ.top() << "\n";
 	}
-
 }

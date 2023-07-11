@@ -1,13 +1,13 @@
 #include<iostream>
 #include<queue>
-int map[101] = { 0, }; // 사다리 뱀 위치정보 저장
-bool visited[101] = { 0, }; // 방문 정보 저장
+int map[101] = { 0, };
+bool visited[101] = { 0, };
 using namespace std;
 int n, m;
 
 void play(int a, int b) {
-	queue<pair<int, int>> q;
-	q.push({ a, b });
+	queue<pair<int, int>>q;
+	q.push({ a,b });
 	while (!q.empty()) {
 		int loc = q.front().first;
 		int cnt = q.front().second;
@@ -19,18 +19,17 @@ void play(int a, int b) {
 				return;
 			}
 			else if (nextloc < 100) {
-				if(map[nextloc]) {
+				if (map[nextloc]) {
 					nextloc = map[nextloc];
 				}
-				if(!visited[nextloc]){
-					q.push({ nextloc, cnt + 1 });
+				if (!visited[nextloc]) {
+					q.push({ nextloc,cnt + 1 });
 					visited[nextloc] = true;
 				}
 			}
 		}
 	}
 }
-
 int main() {
 	int x, y;
 	cin >> n >> m;
@@ -42,5 +41,6 @@ int main() {
 		cin >> x >> y;
 		map[x] = y;
 	}
-	play(1,0);
+	play(1, 0);
+
 }
